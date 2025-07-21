@@ -1,0 +1,14 @@
+Auth
+- Register (one record will store to user table)
+- Login (check) Email / Password
+
+
+- Dashboard
+- Logout
+
+
+- Roles 
+  - HR 
+  - Manager
+  - Officer
+  
