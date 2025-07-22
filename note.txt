@@ -12,3 +12,12 @@ Auth
   - Manager
   - Officer
   
+
+Other's Laravel project Clone
+=============================
+- git clone url
+- enter project folder 
+- composer install 
+- npm install --force 
+-> TODO: recreate .env file (copy / paste .env.example)
+- php artisan key:generate
