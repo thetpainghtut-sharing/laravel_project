@@ -12,7 +12,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        $categories = Category::all();
+        return view('backend.category.list', compact('categories'));
     }
 
     /**
@@ -20,7 +21,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('backend.category.create');
     }
 
     /**
@@ -28,7 +29,19 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'categoryName' => 'required|string|max:100|min:3',
+        ]);
+
+        // Category::create([
+        //     'name' => $request->categoryName
+        // ]);
+
+        $category = new Category();
+        $category->name = $request->categoryName;
+        $category->save();
+
+        return redirect()->route('categories.index')->with('success', 'Category created successfully');
     }
 
     /**

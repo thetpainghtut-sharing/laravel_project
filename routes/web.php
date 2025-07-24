@@ -21,7 +21,8 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-
-Route::resource('categories', App\Http\Controllers\CategoryController::class);
-Route::resource('authors', App\Http\Controllers\AuthorController::class);
-Route::resource('books', App\Http\Controllers\BookController::class);
+Route::group(['middleware' => ['auth']], function () {
+    Route::resource('categories', App\Http\Controllers\CategoryController::class);
+    Route::resource('authors', App\Http\Controllers\AuthorController::class);
+    Route::resource('books', App\Http\Controllers\BookController::class);
+});

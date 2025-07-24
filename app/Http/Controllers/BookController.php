@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Book;
 use Illuminate\Http\Request;
+use App\Models\Category;
+use App\Models\Author;
 
 class BookController extends Controller
 {
@@ -12,7 +14,8 @@ class BookController extends Controller
      */
     public function index()
     {
-        //
+        $books = Book::all();
+        return view('backend.book.list', compact('books'));
     }
 
     /**
@@ -20,7 +23,9 @@ class BookController extends Controller
      */
     public function create()
     {
-        //
+        $categories = Category::all();
+        $authors = Author::all();
+        return view('backend.book.create', compact('categories', 'authors'));
     }
 
     /**
@@ -28,7 +33,33 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'bookName' => 'required|string|max:100|min:3',
+            'bookAuthor' => 'required|exists:authors,id',
+            'bookPrice' => 'required|numeric',
+            'bookCategory' => 'required|exists:categories,id',
+            'bookImage' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'bookDescription' => 'required|string',
+        ]);
+
+        $book = new Book();
+        $book->name = $request->bookName;
+        $book->author_id = $request->bookAuthor;
+        $book->price = $request->bookPrice;
+        $book->category_id = $request->bookCategory;
+        $book->description = $request->bookDescription;
+
+        if ($request->hasFile('bookImage')) {
+            $image = $request->file('bookImage');
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $uploadPath = public_path('images/books');
+            $image->move($uploadPath, $imageName);
+            $book->image = 'images/books/' . $imageName;
+        }
+
+        $book->save();
+
+        return redirect()->route('books.index')->with('success', 'Book created successfully');
     }
 
     /**
@@ -43,8 +74,10 @@ class BookController extends Controller
      * Show the form for editing the specified resource.
      */
     public function edit(Book $book)
-    {
-        //
+    {   
+        $categories = Category::all();
+        $authors = Author::all();
+        return view('backend.book.edit', compact('book', 'categories', 'authors'));
     }
 
     /**
@@ -52,7 +85,39 @@ class BookController extends Controller
      */
     public function update(Request $request, Book $book)
     {
-        //
+        $request->validate([
+            'bookName' => 'required|string|max:100|min:3',
+            'bookAuthor' => 'required|exists:authors,id',
+            'bookPrice' => 'required|numeric',
+            'bookCategory' => 'required|exists:categories,id',
+            'bookImage' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'bookDescription' => 'required|string',
+        ]);
+
+        // $book = new Book();
+        $book->name = $request->bookName;
+        $book->author_id = $request->bookAuthor;
+        $book->price = $request->bookPrice;
+        $book->category_id = $request->bookCategory;
+        $book->description = $request->bookDescription;
+
+        if ($request->hasFile('bookImage')) {
+            // Delete the old image if it exists
+            if ($book->image && file_exists(public_path($book->image))) {
+                unlink(public_path($book->image));
+            }
+
+            // Upload the new image
+            $image = $request->file('bookImage');
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $uploadPath = public_path('images/books');
+            $image->move($uploadPath, $imageName);
+            $book->image = 'images/books/' . $imageName;
+        }
+
+        $book->save();
+
+        return redirect()->route('books.index')->with('success', 'Book updated successfully');
     }
 
     /**

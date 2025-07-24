@@ -12,7 +12,8 @@ class AuthorController extends Controller
      */
     public function index()
     {
-        //
+        $authors = Author::all();
+        return view('backend.author.list', compact('authors'));
     }
 
     /**
@@ -20,7 +21,7 @@ class AuthorController extends Controller
      */
     public function create()
     {
-        //
+        return view('backend.author.create');
     }
 
     /**
@@ -28,7 +29,15 @@ class AuthorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+           'authorName' => 'required|string|max:100|min:3',
+        ]);
+
+        $author = new Author();
+        $author->name = $request->authorName;
+        $author->save();
+
+        return redirect()->route('authors.index')->with('success', 'Author: Firstname Lastname successfully');
     }
 
     /**
