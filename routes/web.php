@@ -18,7 +18,8 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::get('/', [App\Http\Controllers\FrontendController::class, 'index'])->name('homepage');
-Route::get('/detail', [App\Http\Controllers\FrontendController::class, 'detail'])->name('detailpage');
+Route::get('/detail/{id}', [App\Http\Controllers\FrontendController::class, 'detail'])->name('detailpage');
+Route::get('/cart', [App\Http\Controllers\FrontendController::class, 'cart'])->name('cartpage');
 
 Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
