@@ -61,7 +61,7 @@
                       </div>
                       <!-- Product actions-->
                       <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                          <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>
+                          <div class="text-center"><a class="btn btn-outline-dark mt-auto addToCart" href="#" data-id="{{ $book->id }}" data-image="{{ asset($book->image) }}" data-name="{{ $book->name }}" data-author="{{ $book->author->name }}" data-price="{{ $book->price }}">Add to cart</a></div>
                       </div>
                   </div>
                 </a>

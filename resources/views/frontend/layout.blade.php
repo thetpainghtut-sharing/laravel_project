@@ -19,9 +19,13 @@
         @yield('content')
         <!-- Footer-->
         @include('frontend.parts.footer')
+        <!-- JQuery core JS-->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->
         <script src="{{ asset('frontend_assets/js/scripts.js') }}"></script>
+        <!-- Cart Custom JS-->
+        <script src="{{ asset('frontend_assets/js/cart.js') }}"></script>
     </body>
 </html>
