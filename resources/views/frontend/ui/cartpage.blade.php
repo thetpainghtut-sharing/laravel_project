@@ -8,61 +8,63 @@
               <div class="col-md-8">
                 <h1 class="display-5 fw-bolder mb-4">Shopping Cart</h1>
 
-                <table class="table">
-                    <thead>
-                        <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Book</th>
-                        <th scope="col">Quantity</th>
-                        <th scope="col">Price</th>
-                        <th scope="col" colspan="2">Amount</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <th scope="row" class="align-middle">1</th>
-                            <td>
-                                <div class="d-flex align-items-center">
-                                    <img src="https://dummyimage.com/50x100/55595c/fff" alt="..." />
-                                    <div class="ms-3">
-                                    <div class="fw-bold">Book Name</div>
-                                    <div class="text-muted">Book Author</div>
+                <div id="cartTable">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Book</th>
+                            <th scope="col">Quantity</th>
+                            <th scope="col">Price</th>
+                            <th scope="col" colspan="2">Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{-- <tr>
+                                <th scope="row" class="align-middle">1</th>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <img src="https://dummyimage.com/50x100/55595c/fff" alt="..." />
+                                        <div class="ms-3">
+                                        <div class="fw-bold">Book Name</div>
+                                        <div class="text-muted">Book Author</div>
+                                        </div>
                                     </div>
-                                </div>
-                            </td>
-                            <td class="align-middle">
-                                <input type="number" class="form-control w-50" value="1" min="1">
-                            </td>
-                            <td class="align-middle">4,500</td>
-                            <td class="align-middle">
-                                <div class="fw-bold">4,500</div>
-                            </td>
-                            <td class="align-middle">
-                                <button type="button" class="btn btn-outline-danger">
-                                    <i class="bi bi-trash"></i>
-                                </button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-end" scope="row" colspan="4">Subtotal</td>
-                            <td colspan="2">
-                                <div class="fw-bold">4,500</div>
-                            </td>
-                        </tr>
-                        <tr class="border-0 border-top">
-                            <td class="text-end" scope="row" colspan="4">Discount</td>
-                            <td colspan="2">
-                                <div class="fw-bold">500</div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="fw-bold text-end" scope="row" colspan="4">Total</td>
-                            <td colspan="2">
-                                <div class="fw-bold">4,000</div>
-                            </td>
-                        </tr>
-                    </tbody>
+                                </td>
+                                <td class="align-middle">
+                                    <input type="number" class="form-control w-50" value="1" min="1">
+                                </td>
+                                <td class="align-middle">4,500</td>
+                                <td class="align-middle">
+                                    <div class="fw-bold">4,500</div>
+                                </td>
+                                <td class="align-middle">
+                                    <button type="button" class="btn btn-outline-danger">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-end" scope="row" colspan="4">Subtotal</td>
+                                <td colspan="2">
+                                    <div class="fw-bold">4,500</div>
+                                </td>
+                            </tr>
+                            <tr class="border-0 border-top">
+                                <td class="text-end" scope="row" colspan="4">Discount</td>
+                                <td colspan="2">
+                                    <div class="fw-bold">500</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="fw-bold text-end" scope="row" colspan="4">Total</td>
+                                <td colspan="2">
+                                    <div class="fw-bold">4,000</div>
+                                </td>
+                            </tr> --}}
+                        </tbody>
                     </table>
+                </div>
               </div>
               <div class="col-md-4">
                   <h1 class="display-6 fw-bolder mb-4">Payment Info.</h1>

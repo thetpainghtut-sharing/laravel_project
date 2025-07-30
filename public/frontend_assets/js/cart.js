@@ -55,33 +55,54 @@ $(document).ready(function(){
                   $('#cart-count').text('0')
               }
           })
+          // console.log(count);
       }
   }
 
   getdata();
   function getdata(){
-      let itemstring = localStorage.getItem('shops');
+      let hasProduct = true;
+      let itemstring = localStorage.getItem('bookCart');
       if(itemstring){
           let itemArray = JSON.parse(itemstring);
+
+          if(itemArray.length == 0){
+            hasProduct = false;
+          }
 
           let data = '';
           let no = 1;
           let total = 0;
           $.each(itemArray,function(i,v){
+              let image = v.image;
               let name = v.name;
+              let author = v.author;
               let price = v.price;
               let qty = v.qty;
 
               data += `<tr>
                           <td>${no++}</td>
-                          <td>${name}</td>
-                          <td>${price}</td>
+                          <td>
+                            <div class="d-flex align-items-center">
+                              <img src="${image}" width="75" alt="..." />
+                              <div class="ms-3">
+                              <div class="fw-bold">${name}</div>
+                              <div class="text-muted">${author}</div>
+                              </div>
+                            </div>
+                          </td>
                           <td>
                               <button class="min" data-key="${i}"> - </button>
                               ${qty}
                               <button class="max" data-key="${i}"> + </button>
                           </td>
+                          <td>${price}</td>
                           <td>${price * qty}</td>
+                          <td>
+                              <button type="button" class="btn btn-outline-danger">
+                                  <i class="bi bi-trash"></i>
+                              </button>
+                          </td>
                       </tr>`;
 
                       total += price * qty;
@@ -89,10 +110,16 @@ $(document).ready(function(){
 
           data += `<tr>
                       <td colspan="4" align="right">Total</td>
-                      <td>${total}</td>
+                      <td colspan="4">${total}</td>
                   </tr>`;
 
           $('tbody').html(data);
+      } else {
+          hasProduct = false;
+      }
+
+      if (!hasProduct) {
+          $('#cartTable').html('<h3 class="text-center">No Product Found</h3>');
       }
   }
 
