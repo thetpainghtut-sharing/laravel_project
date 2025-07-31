@@ -29,3 +29,5 @@ Route::group(['middleware' => ['auth', 'role:owner']], function () { // 'role:ow
     Route::resource('authors', App\Http\Controllers\AuthorController::class);
     Route::resource('books', App\Http\Controllers\BookController::class);
 });
+
+Route::resource('orders', App\Http\Controllers\OrderController::class);

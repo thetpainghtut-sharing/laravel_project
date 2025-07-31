@@ -21,3 +21,30 @@ Other's Laravel project Clone
 - npm install --force 
 -> TODO: recreate .env file (copy / paste .env.example)
 - php artisan key:generate
+
+
+Ecommerce Order 
+---------------
+-> an order ----> include -> at least one item 
+
+-> orders (id, orderno, customer, phone, shipping address, type)
+- (1, v0001, thet, 09887878, hlaing, wave)
+
+
+-> order_item (id, order_id, item_id, qty)
+- (1, 1, 4, 2)
+- (2, 1, 6, 1)
+
+
+Name.   |.  Qty.        |      Price.      |  Subtotal
+-------------------------------------------------------
+4-> book A. |.    2         |       4500       |    9000
+6-> book z. |     1         |      12000       |   12000
+-------------------------------------------------------
+Total                                          21000
+
+
+-> orders         -> books         
+- one order has many books 
+- one book included in many orders 
+

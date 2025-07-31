@@ -91,7 +91,11 @@
                       <div class="mb-3">
                           <textarea  class="form-control" placeholder="Shipping Address"></textarea>
                       </div>
-                      <button type="submit" class="btn btn-primary">Checkout</button>
+                      @guest
+                        <a href="{{route('login')}}" type="button" class="btn btn-primary">Login to Checkout</a>
+                      @else
+                        <button type="button" class="btn btn-primary">Checkout</button>
+                      @endguest
                   </form>
               </div>
           </div>
