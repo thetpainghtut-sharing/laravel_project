@@ -28,7 +28,8 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // json response
+        return response()->json($request->all());
     }
 
     /**

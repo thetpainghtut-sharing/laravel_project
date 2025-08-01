@@ -70,35 +70,80 @@
                   <h1 class="display-6 fw-bolder mb-4">Payment Info.</h1>
 
                   {{-- form with payment method --}}
-                  <form action="">
+                  <form action="" method="POST" onsubmit="return checkout()">
                       <div class="mb-3">
                           <div class="form-check">
-                            <input class="form-check-input" type="radio" name="radioDefault" id="kpay">
+                            <input class="form-check-input" type="radio" name="payment" id="kpay" value="kpay">
                             <label class="form-check-label" for="kpay">
                                 KPay
                             </label>
                             </div>
                             <div class="form-check">
-                            <input class="form-check-input" type="radio" name="radioDefault" id="wave" checked>
+                            <input class="form-check-input" type="radio" name="payment" id="wave" value="wave" checked>
                             <label class="form-check-label" for="wave">
                                 Wave
                             </label>
                           </div>
                       </div>
                       <div class="mb-3">
-                          <input type="text" class="form-control" placeholder="Contact phone number">
+                          <input type="text" class="form-control" placeholder="Contact phone number" id="phone">
                       </div>
                       <div class="mb-3">
-                          <textarea  class="form-control" placeholder="Shipping Address"></textarea>
+                          <textarea  class="form-control" placeholder="Shipping Address" id="address"></textarea>
                       </div>
                       @guest
                         <a href="{{route('login')}}" type="button" class="btn btn-primary">Login to Checkout</a>
                       @else
-                        <button type="button" class="btn btn-primary">Checkout</button>
+                        <button type="submit" class="btn btn-primary">Checkout</button>
                       @endguest
                   </form>
               </div>
           </div>
       </div>
   </section>
+@endsection
+
+@section('script')
+  <script>
+    function checkout() {
+        let payment = $('input[name="payment"]:checked').val();
+        let phone = $('#phone').val();
+        let address = $('#address').val();
+        let itemstring = localStorage.getItem('bookCart');
+
+        if (payment == null) {
+            alert('Please select payment method');
+        } else if (phone == '') {
+            alert('Please enter contact phone number');
+        } else if (address == '') {
+            alert('Please enter shipping address');
+        } else if(!itemstring || itemstring == '') {
+            alert('Cart is empty');
+        }
+
+        let payload = {
+            payment: payment,
+            phone: phone,
+            address: address,
+            itemstring: itemstring
+        }
+        console.log(payload);
+
+        // send ajax to checkout
+        $.post('{{route('orders.store')}}', {
+            _token: '{{csrf_token()}}',
+            _method: 'POST',
+            payment: payment,
+            phone: phone,
+            address: address,
+            itemstring: itemstring
+        }).done(function(data) {
+            console.log("OK OK -->", data);
+        }).fail(function(data) {
+            console.log("Failed -->", data);
+        });
+
+        return false;
+    }
+  </script>
 @endsection
