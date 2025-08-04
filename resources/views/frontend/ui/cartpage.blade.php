@@ -139,8 +139,14 @@
             itemstring: itemstring
         }).done(function(data) {
             console.log("OK OK -->", data);
+            localStorage.clear();
+            $('#cart-count').text('0')
+            $('#cartTable').html('<h3 class="text-center">Your order has been placed!</h3>');
+            $('#phone').val('');
+            $('#address').val('');
         }).fail(function(data) {
             console.log("Failed -->", data);
+            alert('Failed to checkout');
         });
 
         return false;

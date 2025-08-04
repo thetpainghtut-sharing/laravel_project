@@ -28,8 +28,33 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
+        // $request->validate([
+            
+        // ]);
+
+        $order = new Order();
+        $order->user_id = Auth()->user()->id; // customer id
+        $order->orderno = uniqid(); // auto generated
+        $order->phone = $request->phone; // from frontend
+        $order->shipping_address = $request->address; // from frontend
+        $order->payment_type = $request->payment; // from frontend
+        $total = 0;
+        // order items
+        $itemArray = json_decode($request->itemstring); // from frontend
+        foreach($itemArray as $item) {
+            $total += $item->price * $item->qty;
+        }
+        $order->total = $total;
+        $order->save();
+
+        foreach($itemArray as $item) {
+            $order->books()->attach($item->id, ['quantity' => $item->qty]);
+        }
+
         // json response
-        return response()->json($request->all());
+        return response()->json([
+            'order' => $order
+        ]);
     }
 
     /**
