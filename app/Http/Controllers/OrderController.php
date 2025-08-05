@@ -7,12 +7,18 @@ use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
+    public function __construct() {
+        // index method must have owner role
+        $this->middleware('role:owner')->only('index');
+        $this->middleware('role:customer')->only('store');
+    }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        $orders = Order::orderBy('id', 'desc')->get();
+        return view('backend.order.list', compact('orders'));
     }
 
     /**
@@ -62,7 +68,7 @@ class OrderController extends Controller
      */
     public function show(Order $order)
     {
-        //
+        return view('backend.order.detail', compact('order'));
     }
 
     /**

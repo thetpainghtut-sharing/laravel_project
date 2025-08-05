@@ -94,7 +94,13 @@
                       @guest
                         <a href="{{route('login')}}" type="button" class="btn btn-primary">Login to Checkout</a>
                       @else
-                        <button type="submit" class="btn btn-primary">Checkout</button>
+                        <button type="submit" class="btn btn-primary"
+                        @role('owner') disabled @endrole 
+                        >Checkout</button>
+
+                        @role('owner')
+                            <p class="text-danger">You are an owner!</p>
+                        @endrole 
                       @endguest
                   </form>
               </div>

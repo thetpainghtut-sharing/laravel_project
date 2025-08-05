@@ -24,10 +24,10 @@ Route::get('/cart', [App\Http\Controllers\FrontendController::class, 'cart'])->n
 Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::group(['middleware' => ['auth', 'role:owner']], function () { // 'role:owner'
+Route::group(['middleware' => ['auth', 'role:owner']], function () {
     Route::resource('categories', App\Http\Controllers\CategoryController::class);
     Route::resource('authors', App\Http\Controllers\AuthorController::class);
     Route::resource('books', App\Http\Controllers\BookController::class);
 });
 
-Route::resource('orders', App\Http\Controllers\OrderController::class);
+Route::resource('orders', App\Http\Controllers\OrderController::class)->middleware('auth');
